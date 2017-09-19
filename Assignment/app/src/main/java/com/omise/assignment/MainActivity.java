@@ -1,13 +1,34 @@
 package com.omise.assignment;
 
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import javax.inject.Inject;
+import com.omise.assignment.applications.bases.BaseActivity;
+import org.greenrobot.eventbus.EventBus;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends BaseActivity {
+	
+	@Inject
+	EventBus mEventBus;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.activity_main);
 	}
+	
+	@Override
+	protected boolean init(final Bundle saveInstanceState) {
+		return false;
+	}
+	
+	@Override
+	protected void injectDependencies() {
+		((CharityApplication) getApplication()).getApplictionComponent().inject(this);
+	}
+	
+	
+	@Override
+	protected int getResView() {
+		return R.layout.activity_main;
+	}
+	
 }

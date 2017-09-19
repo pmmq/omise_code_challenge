@@ -11,10 +11,19 @@ android {
 		versionName "1.0"
 		testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
 	}
+	dataBinding{
+		enabled = true
+	}
 	buildTypes {
 		release {
 			minifyEnabled false
 			proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+			buildConfigField "String","API_KEY" , "\"c4a63b39224b473d9517133d96d39edcs\""
+			buildConfigField 'String',"API_END_POINT", "\"https://newsapi.org/v1/\""
+		}
+		debug{
+			buildConfigField "String","API_KEY" , "\"c4a63b39224b473d9517133d96d39edc\""
+			buildConfigField 'String',"API_END_POINT", "\"https://newsapi.org/v1/\""
 		}
 	}
 }
@@ -25,6 +34,30 @@ dependencies {
 		exclude group: 'com.android.support', module: 'support-annotations'
 	})
 	compile 'com.android.support:appcompat-v7:25.3.1'
+	compile 'com.android.support:recyclerview-v7:25.3.1'
+	compile 'com.android.support:design:25.3.1'
 	compile 'com.android.support.constraint:constraint-layout:1.0.2'
+
+	// dagger 2
+	annotationProcessor 'com.google.dagger:dagger-compiler:2.7'
+	provided 'javax.annotation:jsr250-api:1.0'
+	compile 'com.google.dagger:dagger:2.7'
+	//eventbus
+	compile 'org.greenrobot:eventbus:3.0.0'
+	// glide
+	compile 'com.github.bumptech.glide:glide:4.0.0-RC1'
+	// retrofit
+	compile 'com.squareup.retrofit2:retrofit:2.3.0'
+	// retorfit gson
+	compile 'com.squareup.retrofit2:converter-gson:2.3.0'
+	// gson
+	compile 'com.google.code.gson:gson:2.8.1'
+	// okhttp
+	compile 'com.squareup.okhttp3:okhttp:3.8.1'
+	// okhttp log interceptor
+	compile 'com.squareup.okhttp3:logging-interceptor:3.8.1'
+
+	// logger
+	compile 'com.elvishew:xlog:1.3.0'
 	testCompile 'junit:junit:4.12'
 }
