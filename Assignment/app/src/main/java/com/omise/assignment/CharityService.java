@@ -14,6 +14,6 @@ public interface CharityService {
 	Call<ResponseBody> getCharities();
 	
 	@POST(ServiceEndpoint.DONATE)
-	Call<ResponseBody> donate(@Path("id")int id , @Query("customer_name") String cusName, @Query("card_token") String card_token, @Query("donation_amount") String amount);
-	
+	Call<ResponseBody> donate(@Path("id") int id, @Query("customer_name") String cusName,
+			@Query("card_token") String card_token, @Query("donation_amount") String amount);
 }

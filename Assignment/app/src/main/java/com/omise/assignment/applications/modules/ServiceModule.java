@@ -54,7 +54,7 @@ public class ServiceModule {
 		@Override
 		public Response intercept(final Chain chain) throws IOException {
 			Request request = chain.request();
-			Request newReuest = request.newBuilder().addHeader("X-Api-Key", BuildConfig.API_KEY)
+			Request newReuest = request.newBuilder().addHeader("x-token", BuildConfig.API_KEY)
 					.method(request.method(), request.body()).build();
 			return chain.proceed(newReuest);
 		}
