@@ -1,6 +1,9 @@
 package com.omise.assignment;
 
 import android.app.Application;
+import android.content.IntentFilter;
+import android.net.ConnectivityManager;
+import android.os.Build;
 
 import com.elvishew.xlog.LogLevel;
 import com.elvishew.xlog.XLog;
@@ -8,11 +11,11 @@ import com.omise.assignment.applications.components.ApplicationComponent;
 import com.omise.assignment.applications.components.DaggerApplicationComponent;
 import com.omise.assignment.applications.modules.ApplicationModule;
 import com.omise.assignment.applications.modules.ServiceModule;
+import com.omise.assignment.applications.services.ConnectionChangeReceiver;
 
-
-public class CharityApplication extends Application {
+public class TumBoonApplication extends Application {
 	
-	private static Application mApplication;
+	private static TumBoonApplication mApplication;
 	private ApplicationComponent mApplicationComponent;
 	
 	@Override
@@ -22,9 +25,16 @@ public class CharityApplication extends Application {
 		mApplication = this;
 		mApplicationComponent = DaggerApplicationComponent.builder().applicationModule(new ApplicationModule(this))
 				.serviceModule(new ServiceModule()).build();
+		
+		// register network receiver for android version > nugat
+		if (android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.N){
+			IntentFilter intentFilter = new IntentFilter();
+			intentFilter.addAction(ConnectivityManager.CONNECTIVITY_ACTION);
+			registerReceiver(new ConnectionChangeReceiver(), intentFilter);
+		}
 	}
 	
-	public static Application getApplication() {
+	public static TumBoonApplication getApplication() {
 		return mApplication;
 	}
 	

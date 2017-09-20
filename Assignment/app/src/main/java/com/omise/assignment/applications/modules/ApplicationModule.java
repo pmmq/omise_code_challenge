@@ -2,8 +2,8 @@ package com.omise.assignment.applications.modules;
 
 import javax.inject.Singleton;
 
-import com.omise.assignment.ApplicationManager;
-import com.omise.assignment.CharityApplication;
+import com.omise.assignment.applications.managers.ApplicationManager;
+import com.omise.assignment.TumBoonApplication;
 import dagger.Module;
 import dagger.Provides;
 
@@ -12,18 +12,16 @@ import org.greenrobot.eventbus.EventBus;
 @Module
 public class ApplicationModule {
 	
-	CharityApplication mApplication;
-	
+	TumBoonApplication mApplication;
 	EventBus mEventBus;
 	
-	
-	public ApplicationModule(CharityApplication mApplication) {
+	public ApplicationModule(TumBoonApplication mApplication) {
 		mApplication = mApplication;
 	}
 	
 	@Provides
 	@Singleton
-	ApplicationManager providesVMManager(EventBus pEventBus) {
+	ApplicationManager provideApplicationManager(EventBus pEventBus) {
 		return new ApplicationManager(mApplication, pEventBus);
 	}
 	

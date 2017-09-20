@@ -1,6 +1,8 @@
 package com.omise.assignment.applications.modules;
 
 import javax.inject.Singleton;
+
+import com.omise.assignment.TumBoonService;
 import dagger.Module;
 import dagger.Provides;
 import java.io.IOException;
@@ -15,17 +17,16 @@ import okhttp3.logging.HttpLoggingInterceptor;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 import com.omise.assignment.BuildConfig;
-import com.omise.assignment.CharityService;
 
 @Module
 public class ServiceModule {
 	
 	@Provides
 	@Singleton
-	CharityService provideVMSerice(Gson gson, OkHttpClient client) {
+	TumBoonService provideService(Gson gson, OkHttpClient client) {
 		Retrofit retorfit = new Retrofit.Builder().baseUrl(BuildConfig.API_END_POINT)
 				.addConverterFactory(GsonConverterFactory.create(gson)).client(client).build();
-		return retorfit.create(CharityService.class);
+		return retorfit.create(TumBoonService.class);
 	}
 	
 	@Provides

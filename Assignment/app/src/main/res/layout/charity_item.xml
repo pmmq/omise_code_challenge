@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<layout xmlns:app="http://schemas.android.com/apk/res-auto">
+
+	<data>
+		<variable
+			name="item"
+			type="com.omise.assignment.charity.CharityModel"/>
+		<variable
+			name="adapter"
+			type="com.omise.assignment.charity.CharitiesListAdapter"/>
+		<variable
+			name="position"
+			type="Integer"/>
+
+	</data>
+
+	<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+		xmlns:tools="http://schemas.android.com/tools"
+		android:orientation="horizontal"
+		android:padding="@dimen/activity_vertical_margin"
+		android:clickable="true"
+		android:foreground="?android:attr/selectableItemBackgroundBorderless"
+		android:background="@{adapter.getColor(position)}"
+		android:onClick="@{(v) -> adapter.onSelectItem(v,item)}"
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content">
+
+		<RelativeLayout
+			android:layout_gravity="center_vertical"
+			android:background="@color/colorAccent"
+			android:layout_width="55dp"
+			android:layout_height="55dp">
+			<android.support.v7.widget.AppCompatImageView
+				app:srcCompat="@color/colorAccent"
+				app:imageUrl="@{item.getLogoUrl()}"
+				android:layout_centerInParent="true"
+				android:layout_width="50dp"
+				android:layout_height="50dp" />
+		</RelativeLayout>
+
+
+		<android.support.v7.widget.AppCompatTextView
+			android:text="@{item.getName()}"
+			android:layout_marginLeft="@dimen/activity_horizontal_margin"
+			android:layout_marginRight="@dimen/activity_horizontal_margin"
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content" />
+
+	</LinearLayout>
+</layout>

@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:app="http://schemas.android.com/apk/res-auto"
+	xmlns:tools="http://schemas.android.com/tools">
+
+	<data>
+
+		<import type="android.view.View" />
+
+		<variable
+			name="activity"
+			type="com.omise.assignment.donate.DonateActivity" />
+
+	</data>
+
+	<RelativeLayout
+		xmlns:android="http://schemas.android.com/apk/res/android"
+		android:layout_width="match_parent"
+		android:layout_height="match_parent"
+		android:background="@color/colorPrimary">
+
+		<LinearLayout
+			android:layout_width="match_parent"
+			android:layout_height="match_parent"
+			android:orientation="vertical">
+
+			<com.badoualy.stepperindicator.StepperIndicator
+				android:id="@+id/indicator"
+				android:layout_marginTop="10dp"
+				android:layout_marginBottom="10dp"
+				android:layout_width="250dp"
+				android:layout_height="wrap_content"
+				android:layout_gravity="center_horizontal"
+				app:stpi_circleRadius="4dp"
+				app:stpi_indicatorColor="@color/colorAccent"
+				app:stpi_stepCount="5" />
+
+			<android.support.v4.view.ViewPager
+				android:id="@+id/pager"
+				android:layout_width="match_parent"
+				android:layout_height="match_parent"
+				android:layout_weight="1" />
+
+			<LinearLayout
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content"
+				android:background="@color/transparent_white_percent_25"
+				android:orientation="horizontal">
+
+				<android.support.v7.widget.AppCompatTextView
+					android:clickable="true"
+					android:foreground="?android:attr/selectableItemBackgroundBorderless"
+					android:layout_width="0dp"
+					android:layout_height="50dp"
+					android:layout_weight="1"
+					android:gravity="center"
+					android:text="Back" />
+				<View
+					android:layout_width=".5dp"
+					android:layout_height="match_parent"
+					android:background="@color/colorAccent" />
+				<android.support.v7.widget.AppCompatTextView
+					android:clickable="true"
+					android:foreground="?android:attr/selectableItemBackgroundBorderless"
+					android:layout_width="0dp"
+					android:layout_height="50dp"
+					android:layout_weight="1"
+					android:gravity="center"
+					android:text="Next" />
+
+			</LinearLayout>
+
+		</LinearLayout>
+
+		<ProgressBar
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:layout_centerInParent="true"
+			android:visibility="@{activity.isLoading ? View.VISIBLE : View.GONE}" />
+	</RelativeLayout>
+</layout>
