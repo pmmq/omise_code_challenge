@@ -1,4 +1,5 @@
 <resources>
 	<string name="app_name">TamBoon</string>
 	<string name="omise_pkey">pkey_test_59cviqpzfxcv3grbi0d</string>
+	<string name="donataion_thankyou_message">Thank you for your donation\n %1$s THB</string>
 </resources>

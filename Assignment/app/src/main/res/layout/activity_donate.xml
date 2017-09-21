@@ -22,23 +22,34 @@
 			android:layout_width="match_parent"
 			android:layout_height="match_parent"
 			android:orientation="vertical">
-
-			<com.badoualy.stepperindicator.StepperIndicator
-				android:id="@+id/indicator"
-				android:layout_marginTop="10dp"
-				android:layout_marginBottom="10dp"
-				android:layout_width="250dp"
-				android:layout_height="wrap_content"
-				android:layout_gravity="center_horizontal"
-				app:stpi_circleRadius="4dp"
-				app:stpi_indicatorColor="@color/colorAccent"
-				app:stpi_stepCount="5" />
-
-			<android.support.v4.view.ViewPager
-				android:id="@+id/pager"
+			<RelativeLayout
+				android:layout_weight="1"
 				android:layout_width="match_parent"
-				android:layout_height="match_parent"
-				android:layout_weight="1" />
+				android:layout_height="0dp">
+
+				<com.badoualy.stepperindicator.StepperIndicator
+					android:layout_centerHorizontal="true"
+					android:layout_alignParentBottom="true"
+					android:id="@+id/indicator"
+					android:layout_marginTop="10dp"
+					android:layout_marginBottom="10dp"
+					android:layout_width="140dp"
+					app:stpi_lineColor="@color/transparent_black_percent_25"
+					app:stpi_indicatorRadius="6dp"
+					app:stpi_circleRadius="6dp"
+					app:stpi_lineDoneColor="@color/colorAccent"
+					app:stpi_circleColor="@color/colorAccent"
+					android:layout_height="wrap_content"
+					android:layout_gravity="center_horizontal"/>
+
+				<android.support.v4.view.ViewPager
+					android:id="@+id/pager"
+					android:layout_width="match_parent"
+					android:layout_height="match_parent"
+					android:layout_weight="1" />
+
+			</RelativeLayout>
+
 
 			<LinearLayout
 				android:layout_width="match_parent"
@@ -53,6 +64,7 @@
 					android:layout_height="50dp"
 					android:layout_weight="1"
 					android:gravity="center"
+					android:onClick="@{(v)-> activity.onBackPress(v)}"
 					android:text="Back" />
 				<View
 					android:layout_width=".5dp"
@@ -65,6 +77,7 @@
 					android:layout_height="50dp"
 					android:layout_weight="1"
 					android:gravity="center"
+					android:onClick="@{(v)-> activity.onNextPress(v)}"
 					android:text="Next" />
 
 			</LinearLayout>

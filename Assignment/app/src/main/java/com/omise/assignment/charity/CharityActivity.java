@@ -4,7 +4,9 @@ import android.content.Intent;
 import android.databinding.ObservableBoolean;
 import android.databinding.ViewDataBinding;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.v7.widget.LinearLayoutManager;
+import android.view.View;
 
 import java.util.List;
 
@@ -12,6 +14,7 @@ import javax.inject.Inject;
 
 import co.omise.android.models.Token;
 import co.omise.android.ui.CreditCardActivity;
+import com.bumptech.glide.Glide;
 import com.omise.assignment.R;
 import com.omise.assignment.TumBoonApplication;
 import com.omise.assignment.applications.bases.BaseActivity;
@@ -23,7 +26,7 @@ import org.greenrobot.eventbus.EventBus;
 
 public class CharityActivity extends BaseActivity implements CharityContract.View,AdapterContract<CharityModel>{
 	
-	private static final int REQUEST_CC = 100;
+	private static final int REQUEST_DONATE = 100;
 	
 	@Inject
 	EventBus mEventBus;
@@ -74,9 +77,6 @@ public class CharityActivity extends BaseActivity implements CharityContract.Vie
 	
 	@Override
 	public void onLoading(final boolean isLoading) {
-		if(this.isLoading == null){
-			this.isLoading = new ObservableBoolean(isLoading);
-		}
 		this.isLoading.set(isLoading);
 	}
 	
@@ -84,25 +84,18 @@ public class CharityActivity extends BaseActivity implements CharityContract.Vie
 	protected void bindData(ViewDataBinding binding) {
 		mActivityMainBinding = (ActivityCharityBinding) binding;
 		mActivityMainBinding.setActivity(this);
-	}
-	
-	private void showCreditCardForm() {
-		Intent intent = new Intent(this, CreditCardActivity.class);
-		intent.putExtra(CreditCardActivity.EXTRA_PKEY, getResources().getString(R.string.omise_pkey));
-		startActivityForResult(intent, REQUEST_CC);
+		Glide.with(this).load(R.raw.thankyou).into(mActivityMainBinding.ivThankyou);
 	}
 	
 	@Override
 	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
 		switch (requestCode) {
-			case REQUEST_CC:
-				if (resultCode == CreditCardActivity.RESULT_CANCEL) {
+			case REQUEST_DONATE:
+				if (resultCode == DonateActivity.RESULT_CANCEL) {
 					return;
 				}
-				
-				Token token = data.getParcelableExtra(CreditCardActivity.EXTRA_TOKEN_OBJECT);
-				// TODO: 20/09/2017 call api to get token
-			
+				showThankyou();
+				break;
 			default:
 				super.onActivityResult(requestCode, resultCode, data);
 		}
@@ -112,7 +105,30 @@ public class CharityActivity extends BaseActivity implements CharityContract.Vie
 	public void onItemSelect(final CharityModel model) {
 		Intent intent = new Intent(this, DonateActivity.class);
 		intent.putExtra(DonateActivity.CHARITY_KEY,model);
-		startActivity(intent);
+		startActivityForResult(intent, REQUEST_DONATE);
 	}
+	
+	@Override
+	protected void onDestroy() {
+		super.onDestroy();
+		mPresenter.onDetach();
+	}
+	
+	private void showThankyou(){
+		mActivityMainBinding.ivThankyou.setVisibility(View.VISIBLE);
+		Handler mHandler;
+		Runnable mHandlerTask;
+		mHandler = new Handler();
+		mHandlerTask = new Runnable() {
+			@Override
+			public void run() {
+				if(mActivityMainBinding != null){
+					mActivityMainBinding.ivThankyou.setVisibility(View.GONE);
+				}
+			}
+		};
+		mHandler.postDelayed(mHandlerTask,1000);
+	}
+	
 	
 }

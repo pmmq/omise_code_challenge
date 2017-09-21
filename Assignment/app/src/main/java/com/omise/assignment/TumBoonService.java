@@ -3,6 +3,7 @@ package com.omise.assignment;
 import java.util.List;
 
 import com.omise.assignment.charity.CharityModel;
+import com.omise.assignment.donate.DonateModel;
 import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.http.GET;
@@ -17,7 +18,7 @@ public interface TumBoonService {
 	Call<List<CharityModel>> getCharities();
 	
 	@POST(ServiceEndpoint.DONATE)
-	Call<ResponseBody> donate(@Path("id") int id, @Query("customer_name") String cusName,
+	Call<DonateModel> donate(@Path("id") int id, @Query("customer_name") String cusName,
 			@Query("card_token") String card_token, @Query("donation_amount") String amount);
 	
 }

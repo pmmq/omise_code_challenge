@@ -79,11 +79,6 @@ public class CharitiesListAdapter extends RecyclerView.Adapter<CharitiesListAdap
 		mContract = contract;
 	}
 	
-	@BindingAdapter("imageUrl")
-	public static void setImageUrl(AppCompatImageView imageView, String url) {
-		Context context = imageView.getContext();
-		Glide.with(context).load(url).into(imageView);
-	}
 }
 
 

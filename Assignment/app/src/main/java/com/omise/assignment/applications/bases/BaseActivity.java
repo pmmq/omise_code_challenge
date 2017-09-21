@@ -18,17 +18,18 @@ import com.omise.assignment.TumBoonService;
 
 public abstract class BaseActivity extends AppCompatActivity {
 	
-	@Inject
-	public TumBoonService mTumBoonService;
+	@Inject public TumBoonService mTumBoonService;
 	
 	public ObservableBoolean isLoading;
 	
 	private ViewDataBinding mBinding;
+	
 	@Override
 	protected void onCreate(@Nullable final Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		injectDependencies();
-		mBinding = DataBindingUtil.setContentView(this,getResView());
+		isLoading = new ObservableBoolean(false);
+		mBinding = DataBindingUtil.setContentView(this, getResView());
 		bindData(mBinding);
 		// setContentView(getResView());
 		if (!init(savedInstanceState)) {
@@ -38,6 +39,9 @@ public abstract class BaseActivity extends AppCompatActivity {
 		}
 	}
 	
+	/**
+	 * to attach fragment to view with option add to backstack
+	 */
 	protected FragmentTransaction attachFragment(Fragment fragment, int layout, boolean addToBackStack) {
 		FragmentTransaction transaction = this.attachFragment(fragment, layout);
 		if (addToBackStack) {
@@ -46,6 +50,9 @@ public abstract class BaseActivity extends AppCompatActivity {
 		return transaction;
 	}
 	
+	/**
+	 * to attach fragment to view
+	 */
 	protected FragmentTransaction attachFragment(Fragment fragment, int layout) {
 		FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
 		transaction.replace(layout, fragment, fragment.getClass().getName());
@@ -53,12 +60,24 @@ public abstract class BaseActivity extends AppCompatActivity {
 		return transaction;
 	}
 	
+	/**
+	 * this will call automatically when activity cycle trigger oncreate
+	 */
 	protected abstract boolean init(Bundle saveInstanceState);
 	
+	/**
+	 * to force implement inject depencies
+	 */
 	protected abstract void injectDependencies();
 	
+	/**
+	 * for implement cast databind from param to current view
+	 */
 	protected abstract void bindData(ViewDataBinding mBinding);
 	
+	/**
+	 * to provide view resorce to base class
+	 */
 	@Resource
 	protected abstract int getResView();
 }

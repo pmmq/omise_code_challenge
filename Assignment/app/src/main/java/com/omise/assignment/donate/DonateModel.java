@@ -1,7 +1,13 @@
 package com.omise.assignment.donate;
 
-/**
- * Created by Pub on 20/09/2017.
- */
+import com.google.gson.annotations.SerializedName;
+import com.omise.assignment.applications.bases.BaseResponseModel;
 
-public class DonateModel {}
+public class DonateModel extends BaseResponseModel{
+	@SerializedName("success")
+	boolean success;
+	
+	public boolean isSuccess() {
+		return success;
+	}
+}
